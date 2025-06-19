@@ -1,0 +1,23 @@
+{
+  "name": "fileshare-premium",
+  "version": "2.0.0",
+  "description": "Secure file sharing with a beautiful and private admin dashboard.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "file-sharing",
+    "express",
+    "node",
+    "admin-dashboard"
+  ],
+  "author": "Panz",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "multer": "^1.4.5-lts.1"
+  }
+}
+

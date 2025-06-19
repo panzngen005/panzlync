@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- =================================================================
+    PANZLYNC - HALAMAN UPLOAD DENGAN TEMA PROFESIONAL
+    ================================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File Aman - Panzlync</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Reset & Variabel (Tema Profesional Biru) --- */
+        :root { 
+            --primary-color: #2c7be5; 
+            --secondary-color: #205cbf; 
+            --success-color: #28a745; 
+            --text-color: #1e293b; 
+            --text-light: #64748b; 
+            --bg-body: #f5f7fa;
+            --bg-card: #ffffff;
+            --border-color: #dee2e6;
+            --border-color-light: #f1f3f5;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: var(--bg-body);
+        }
+        
+        /* --- Kotak Form Utama --- */
+        .upload-form { 
+            background: var(--bg-card); 
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 30, 60, 0.1); 
+            border: 1px solid var(--border-color);
+            width: 100%; 
+            max-width: 650px;
+            padding: 40px; 
+            text-align: center;
+            max-height: 95vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInBox 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+        }
+
+        @keyframes fadeInBox {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* --- Elemen UI Lainnya (dengan animasi masuk bertahap) --- */
+        .uploader-box, .options-fieldset, .why-panzlync, .button-submit-upload, .admin-link {
+            opacity: 0;
+            animation: fadeInContent 0.6s ease-out forwards;
+        }
+
+        .uploader-box { animation-delay: 0.5s; }
+        .options-fieldset { animation-delay: 0.6s; }
+        .why-panzlync { animation-delay: 0.7s; }
+        .button-submit-upload { animation-delay: 0.8s; }
+        .admin-link { animation-delay: 0.9s; }
+
+        @keyframes fadeInContent {
+            to { opacity: 1; }
+        }
+
+        /* --- Area Upload Drag & Drop --- */
+        .uploader-box { 
+            border: 2px dashed var(--border-color); 
+            border-radius: 12px; 
+            padding: 30px; 
+            cursor: pointer; 
+            transition: all 0.3s ease-in-out; 
+            background-color: #fcfdff;
+        }
+        .uploader-box.highlight { 
+            border-color: var(--primary-color); 
+            background-color: rgba(44, 123, 229, 0.05); 
+            transform: scale(1.02); 
+        }
+        .uploader-icon { 
+            color: var(--primary-color); 
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+        .uploader-box.highlight .uploader-icon {
+            transform: scale(1.1);
+        }
+        .uploader-box h2 {
+            font-size: 1.5em;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            word-break: break-all; /* Memastikan teks panjang tidak meluber */
+        }
+        .uploader-box p {
+            color: var(--text-light);
+        }
+
+        /* --- Opsi Kontrol --- */
+        .options-fieldset { 
+            border: none; 
+            padding-top: 25px; 
+            margin-top: 25px;
+            border-top: 1px solid var(--border-color-light);
+        }
+        .options-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+        .form-group label { 
+            font-weight: 600; 
+            font-size: 14px; 
+            color: var(--text-color); 
+            text-align: left; 
+            display: block; 
+            margin-bottom: 8px;
+        }
+        .input-group { 
+            display: flex; 
+            gap: 8px; 
+            align-items: center; 
+        }
+        .input-group input, .input-group select { 
+            width: 100%; 
+            padding: 10px; 
+            border-radius: 8px; 
+            border: 1px solid var(--border-color); 
+            font-size: 14px; 
+            background-color: var(--bg-card);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 123, 229, 0.15);
+        }
+        
+        /* --- Bagian "Kenapa Panzlync?" --- */
+        .why-panzlync { 
+            margin-top: 30px; 
+            padding-top: 30px; 
+            border-top: 1px solid var(--border-color-light); 
+        }
+        .why-panzlync h3 { 
+            font-size: 1.4em; 
+            margin-bottom: 25px; 
+            color: var(--text-color); 
+        }
+        .features-row { 
+            display: flex; 
+            justify-content: space-around; 
+            gap: 20px; 
+            text-align: left;
+        }
+        .feature-highlight { flex: 1; }
+        .feature-highlight svg { 
+            width: 32px; 
+            height: 32px; 
+            color: var(--primary-color); 
+            margin-bottom: 15px;
+        }
+        .feature-highlight h4 { 
+            font-size: 1em; 
+            font-weight: 600;
+            margin-bottom: 5px; 
+            color: var(--text-color); 
+        }
+        .feature-highlight p { 
+            font-size: 0.9em; 
+            color: var(--text-light); 
+            line-height: 1.5;
+        }
+        
+        /* --- Tombol & Tautan --- */
+        .button-submit-upload { 
+            width: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 10px; 
+            padding: 15px 25px; 
+            background: var(--primary-color); 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 18px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            margin-top: 40px; 
+        }
+        .button-submit-upload:hover { 
+            transform: translateY(-3px); 
+            background-color: var(--secondary-color);
+            box-shadow: 0 6px 20px rgba(44, 123, 229, 0.2); 
+        }
+        .admin-link { 
+            text-align: center; 
+            margin-top: 20px; 
+        }
+        .admin-link a { 
+            color: var(--text-light); 
+            text-decoration: none; 
+            font-weight: 500; 
+        }
+        .admin-link a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) { 
+            .upload-form{ padding: 25px; } 
+            .options-grid{ grid-template-columns: 1fr; } 
+            .features-row{ flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form" id="upload-form">
+            
+            <div class="uploader-box" id="drop-zone">
+                <svg class="uploader-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <h2 id="drop-zone-title">Seret & Lepaskan File</h2>
+                <p id="file-info-text">atau klik untuk memilih file</p>
+                <input type="file" name="file" id="file-input" required hidden>
+            </div>
+            
+            <fieldset class="options-fieldset">
+                <div class="options-grid">
+                    <div class="form-group">
+                        <label for="expire_unit">Kadaluarsa Dalam</label>
+                        <div class="input-group">
+                            <input type="number" name="expire_value" value="10" min="1" id="expire_value">
+                            <select name="expire_unit" id="expire_unit">
+                                <option value="minutes" selected>Menit</option>
+                                <option value="hours">Jam</option>
+                                <option value="days">Hari</option>
+                                <option value="unlimited">Tak Terbatas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="max_downloads">Batas Unduhan</label>
+                        <div class="input-group">
+                            <input type="number" name="max_downloads" value="3" min="1" id="max_downloads_input">
+                            <select name="max_downloads_option" id="max_downloads_select">
+                                <option value="limited">Kali</option>
+                                <option value="unlimited">Tak Terbatas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="why-panzlync">
+                <h3>Privasi & Kontrol Penuh di Tangan Anda</h3>
+                <div class="features-row">
+                    <div class="feature-highlight">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <h4>Aman & Privat</h4>
+                        <p>Tautan unik menjaga file Anda dari akses yang tidak diinginkan.</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <h4>Kontrol Waktu</h4>
+                        <p>Atur file agar tidak bisa diakses setelah waktu yang ditentukan.</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        <h4>Pembatasan Akses</h4>
+                        <p>Batasi jumlah unduhan untuk setiap file yang Anda bagikan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="button-submit-upload">Upload & Buat Tautan</button>
+            <div class="admin-link"><a href="/">Kembali ke Beranda</a></div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const dropZone = document.getElementById("drop-zone");
+            const fileInput = document.getElementById("file-input");
+            const dropZoneTitle = document.getElementById("drop-zone-title");
+            const fileInfoText = document.getElementById("file-info-text");
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+
+            dropZone.addEventListener("click", () => fileInput.click());
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    dropZone.classList.add("highlight");
+                    dropZoneTitle.textContent = "Lepaskan File untuk Dipilih";
+                }, false);
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove("highlight");
+                handleFiles(fileInput.files); // Kembali ke nama file yg sudah dipilih
+            }, false);
+            
+            dropZone.addEventListener('drop', (e) => {
+                dropZone.classList.remove("highlight");
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                fileInput.files = files;
+                handleFiles(files);
+            }, false);
+
+            fileInput.addEventListener("change", (e) => {
+                handleFiles(e.target.files);
+            });
+            
+            // --- FUNGSI BARU UNTUK MEMOTONG NAMA FILE ---
+            function truncateFileName(name, maxLength = 30) {
+                if (name.length <= maxLength) {
+                    return name;
+                }
+                const extIndex = name.lastIndexOf('.');
+                const namePart = extIndex !== -1 ? name.substring(0, extIndex) : name;
+                const extPart = extIndex !== -1 ? name.substring(extIndex) : '';
+
+                if (namePart.length <= maxLength - extPart.length - 3) {
+                    return name;
+                }
+                
+                const charsToShow = maxLength - extPart.length - 3; // 3 untuk "..."
+                const frontChars = Math.ceil(charsToShow / 2);
+                const backChars = Math.floor(charsToShow / 2);
+
+                return namePart.substring(0, frontChars) + '...' + namePart.substring(namePart.length - backChars) + extPart;
+            }
+
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    // Gunakan fungsi truncate di sini
+                    const truncatedName = truncateFileName(files[0].name);
+                    const fileSize = (files[0].size / 1024 / 1024).toFixed(2);
+                    dropZoneTitle.textContent = truncatedName;
+                    fileInfoText.textContent = `Ukuran: ${fileSize} MB`;
+                } else {
+                    dropZoneTitle.textContent = "Seret & Lepaskan File";
+                    fileInfoText.textContent = "atau klik untuk memilih file";
+                }
+            }
+            
+            const expireUnitSelect = document.getElementById("expire_unit");
+            const expireValueInput = document.getElementById("expire_value");
+            expireUnitSelect.addEventListener("change", function() {
+                expireValueInput.disabled = (this.value === "unlimited");
+            });
+
+            const maxDownloadsSelect = document.getElementById("max_downloads_select");
+            const maxDownloadsInput = document.getElementById("max_downloads_input");
+            maxDownloadsSelect.addEventListener("change", function() {
+                 maxDownloadsInput.disabled = (this.value === "unlimited");
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- =================================================================
+    PANZLYNC - HALAMAN LOGIN ADMIN
+    ================================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Panzlync</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Reset & Variabel --- */
+        :root { --primary-color: #3498db; --text-color: #34495e; --sky-gradient: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-color); line-height: 1.6; }
+        
+        /* --- Layout Utama --- */
+        .login-body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: var(--sky-gradient); overflow: hidden; padding: 20px; }
+        
+        /* --- Kotak Login --- */
+        .login-container { perspective: 1000px; }
+        .login-box { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); text-align: center; width: 100%; max-width: 380px; transition: transform 0.3s ease; }
+        .login-box:hover { transform: rotateY(3deg) rotateX(1deg); }
+        .login-box h2 { font-size: 2em; margin-bottom: 10px; }
+        .login-box .input-group { margin: 20px 0; }
+        .login-box input { width: 100%; padding: 15px; border: 1px solid #ccc; border-radius: 10px; font-size: 1em; }
+        .button-login { width: 100%; padding: 15px; border: none; border-radius: 10px; background: var(--primary-color); color: white; font-size: 1.1em; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body class="login-body">
+    <!-- =========== KONTENER UTAMA =========== -->
+    <div class="login-container">
+        <!-- =========== KOTAK LOGIN =========== -->
+        <div class="login-box">
+            <h2>Admin Login</h2>
+            <p>Masukkan kredensial untuk mengakses dasbor.</p>
+            <form action="/auth" method="post">
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="button-login">Masuk</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

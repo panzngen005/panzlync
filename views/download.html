@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Unduhan - Panzlync</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-color: #3498db; --danger-color: #e74c3c; --text-color: #34495e; --text-light: #7f8c8d; --bg-dark: #f0f4f8; --sky-gradient-animated: linear-gradient(-45deg, #0077b6, #00b4d8, #90e0ef, #ade8f4); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-color); line-height: 1.6; }
+        .upload-body { background: var(--sky-gradient-animated); background-size: 400% 400%; animation: gradientBG 15s ease infinite; display: flex; flex-direction: column; min-height: 100vh; padding: 0; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .main-container { width: 100%; max-width: 650px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: center; }
+        .download-box { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 24px; box-shadow: 0 16px 40px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.3); text-align: center; width: 100%; padding: 40px; }
+        .download-icon { color: var(--primary-color); margin-bottom: 20px; }
+        .download-box.expired .download-icon { color: var(--danger-color); }
+        .download-box h2 { color: var(--text-color); margin-bottom: 10px; }
+        .download-message { color: var(--text-light); font-size: 1.1em; margin-bottom: 30px; }
+        .download-message strong { color: var(--text-color); }
+        .download-action { margin-bottom: 30px; min-height: 60px; display: flex; justify-content: center; align-items: center;}
+        .button-download-page { width: 100%; max-width: 300px; display: inline-block; padding: 15px 25px; background: var(--primary-color); color: white; border-radius: 12px; font-size: 18px; font-weight: 600; text-decoration: none; }
+        
+        /* --- Bagian Tips Keamanan (BARU) --- */
+        .security-tips { margin-top: 30px; padding-top: 30px; border-top: 1px solid #e0e0e0; text-align: left;}
+        .security-tips h4 { text-align: center; margin-bottom: 15px; }
+        .tip-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px; }
+        .tip-item svg { width: 24px; height: 24px; color: var(--primary-color); flex-shrink: 0; margin-top: 3px;}
+        .tip-item p { font-size: 0.9em; margin: 0; color: var(--text-light); }
+
+        .back-link { margin-top: 20px; }
+        .back-link a { color: var(--text-light); text-decoration: none; font-weight: 500; }
+    </style>
+</head>
+<body class="upload-body">
+    <div class="main-container">
+        <div class="download-box">
+            <div class="download-icon"><svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+            <h2>Halaman Unduhan</h2>
+            <p class="download-message">{{MESSAGE}}</p>
+            <div class="download-action">{{DOWNLOAD_BUTTON}}</div>
+
+            <!-- =========== BAGIAN INFORMASI TAMBAHAN (BARU) =========== -->
+            <div class="security-tips">
+                <h4>Tips Keamanan Saat Mengunduh</h4>
+                <div class="tip-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><shield/></svg>
+                    <p>Pastikan Anda mempercayai pengirim file ini. Panzlync tidak bertanggung jawab atas isi dari file yang dibagikan.</p>
+                </div>
+                <div class="tip-item">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 8.5L12 12l-3.5-3.5"/><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                    <p>Selalu gunakan perangkat lunak antivirus untuk memindai file yang telah Anda unduh sebelum membukanya.</p>
+                </div>
+            </div>
+
+            <div class="back-link"><a href="/">Kembali ke Beranda</a></div>
+        </div>
+    </div>
+</body>
+</html>
+

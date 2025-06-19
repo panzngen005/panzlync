@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- =================================================================
+    PANZLYNC - HALAMAN UTAMA (LANDING PAGE)
+    ================================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panzlync - Berbagi File Cerdas & Aman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Reset & Variabel Global --- */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --text-color: #34495e;
+            --text-color-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #ffffff;
+            --bg-dark: #f0f4f8;
+            --sky-gradient-alt: linear-gradient(to top, #eef1f5 0%, #fafcff 100%);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-color); background-color: var(--bg-light); line-height: 1.6; }
+
+        /* --- Gaya Landing Page --- */
+        .landing-body { background-color: #fff; }
+
+        /* --- Header & Navigasi --- */
+        .landing-header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e1e8ed;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; max-width: 1200px; margin: 0 auto; }
+        .logo { font-size: 1.8em; font-weight: 800; color: var(--text-color-dark); }
+        .main-nav ul { list-style: none; display: flex; align-items: center; gap: 20px; }
+        .main-nav a { text-decoration: none; color: var(--text-color); font-weight: 600; padding: 10px; transition: color 0.2s; }
+        .main-nav a:hover { color: var(--primary-color); }
+        .button-header-login { background-color: var(--primary-color); color: white; padding: 10px 20px; border-radius: 8px; }
+        .button-header-login:hover { background-color: var(--secondary-color); color: white; }
+        .mobile-nav-toggle { display: none; } /* Sembunyikan di desktop */
+
+        /* --- Bagian Hero (Utama) --- */
+        .hero-section { text-align: center; padding: 100px 20px; background: var(--sky-gradient-alt); }
+        .hero-content { max-width: 800px; margin: 0 auto; }
+        .hero-title { font-size: 3.2em; font-weight: 800; line-height: 1.2; margin-bottom: 20px; color: var(--text-color-dark); }
+        .hero-subtitle { font-size: 1.2em; color: var(--text-light); max-width: 600px; margin: 0 auto 40px auto; }
+        .button-cta { display: inline-flex; align-items: center; gap: 10px; padding: 18px 35px; border-radius: 12px; background: var(--primary-color); color: white; text-decoration: none; font-size: 1.1em; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4); }
+        .button-cta:hover { transform: translateY(-3px); box-shadow: 0 6px 25px rgba(52, 152, 219, 0.6); }
+
+        /* --- Bagian Fitur & Tentang --- */
+        .features-section, .about-section { padding: 100px 5%; }
+        .section-content { max-width: 1200px; margin: 0 auto; text-align: center; }
+        .features-section h2, .about-section h2 { font-size: 2.5em; font-weight: 700; margin-bottom: 60px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .feature-item { background: var(--sky-gradient-alt); padding: 40px 30px; border-radius: 16px; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid #e1e8ed; }
+        .feature-item:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .feature-icon { font-size: 3em; margin-bottom: 15px; }
+        .feature-item h3 { font-size: 1.3em; margin-bottom: 10px; color: var(--text-color-dark); }
+        .feature-item p { color: var(--text-light); }
+
+        .about-section { background-color: #fff; }
+        .about-content { display: flex; align-items: center; gap: 50px; text-align: left; }
+        .about-image { flex-shrink: 0; }
+        .about-image img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .about-text h3 { font-size: 1.8em; margin-bottom: 15px; }
+        .about-text p { margin-bottom: 15px; font-size: 1.1em; }
+
+        /* --- Footer --- */
+        .landing-footer { text-align: center; padding: 40px 20px; border-top: 1px solid #e1e8ed; color: var(--text-light); font-weight: 500; }
+
+        /* --- Animasi Scroll --- */
+        .fade-in-section { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* --- Gaya Responsif (Mobile & Tablet) --- */
+        @media (max-width: 900px) {
+            .hero-title { font-size: 2.5em; }
+            .about-content { flex-direction: column; }
+            .about-image img { width: 200px; height: 200px; }
+        }
+        @media (max-width: 768px) {
+            /* Menu Navigasi Mobile */
+            .main-nav { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-light); flex-direction: column; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+            .main-nav.active { display: flex; }
+            .main-nav ul { flex-direction: column; width: 100%; padding: 10px 0; }
+            .main-nav li { width: 100%; text-align: center; padding: 10px 0;}
+            /* Tombol Hamburger */
+            .mobile-nav-toggle { display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 25px; background: transparent; border: none; cursor: pointer; padding: 0; }
+            .mobile-nav-toggle span { width: 30px; height: 3px; background-color: var(--text-color-dark); border-radius: 10px; transition: all 0.3s linear; }
+            .mobile-nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+            .mobile-nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .mobile-nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+            
+            .hero-title { font-size: 2.2em; }
+            .hero-subtitle { font-size: 1em; }
+        }
+        @media (max-width: 600px) {
+            .landing-header { justify-content: space-between; }
+            .features-section h2, .about-section h2 { font-size: 2em; }
+            .hero-title { font-size: 2em; }
+        }
+    </style>
+</head>
+<body class="landing-body">
+    <!-- =========== HEADER & NAVIGASI =========== -->
+    <header class="landing-header" id="header">
+        <div class="header-container">
+            <div class="logo">Panzlync</div>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="#features">Fitur</a></li>
+                    <li><a href="#about">Tentang</a></li>
+<!--                     <li><a href="/login" class="button-header-login">Login Admin</a></li> -->
+                </ul>
+            </nav>
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Buka menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- =========== KONTEN UTAMA HALAMAN =========== -->
+    <main>
+        <!-- Bagian Hero -->
+        <section class="hero-section">
+            <div class="hero-content fade-in-section">
+                <h1 class="hero-title">Berbagi File Tanpa Batas, <br>Dengan Kontrol Penuh.</h1>
+                <p class="hero-subtitle">Buat tautan aman yang bisa kedaluwarsa, batasi unduhan, dan tampilkan preview media secara instan. Selamat datang di masa depan berbagi file.</p>
+                <a href="/app" class="button-cta">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    Mulai Berbagi Sekarang
+                </a>
+            </div>
+        </section>
+
+        <!-- Bagian Fitur -->
+        <section id="features" class="features-section">
+            <div class="section-content fade-in-section">
+                <h2>Semua yang Anda Butuhkan untuk Berbagi Cerdas</h2>
+                <div class="features-grid">
+                    <div class="feature-item"><div class="feature-icon">⚙️</div><h3>Tautan Kustom</h3><p>Atur batas waktu dan jumlah unduhan untuk setiap file yang Anda bagikan.</p></div>
+                    <div class="feature-item"><div class="feature-icon">🖼️</div><h3>Preview Instan</h3><p>Tampilkan gambar dan video langsung di browser tanpa perlu mengunduh.</p></div>
+                    <div class="feature-item"><div class="feature-icon">🛡️</div><h3>Keamanan Terdepan</h3><p>Tautan unik dan kemampuan menghapus file kapan saja menjaga data Anda tetap aman.</p></div>
+                    <div class="feature-item"><div class="feature-icon">📊</div><h3>Dasbor Pribadi</h3><p>Pantau semua file, lacak statistik unduhan, dan kelola semuanya dari satu tempat.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Tentang -->
+        <section id="about" class="about-section">
+            <div class="section-content fade-in-section">
+                <h2>Sebuah Proyek dari Hati</h2>
+                <div class="about-content">
+                    <div class="about-image"><img src="https://panzlync.panzstore.biz.id/f/294e04.jpg" alt="Foto Panz"></div>
+                    <div class="about-text">
+                        <h3>Dibuat oleh Panz</h3>
+                        <p>Selamat datang di <strong>Panzlync</strong>, sebuah platform yang lahir dari visi personal untuk menciptakan solusi berbagi file yang tidak hanya fungsional, tetapi juga menghargai privasi dan estetika. Proyek ini dikembangkan dengan tujuan untuk memberikan alat yang kuat bagi para profesional, kreator, dan siapa pun yang ingin berbagi dengan aman dan bergaya.</p>
+                        <p>Panzlync adalah jawaban atas kebutuhan akan kontrol penuh terhadap data digital kita di dunia yang serba terhubung. Terima kasih telah menjadi bagian dari perjalanan ini.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========== FOOTER =========== -->
+    <footer class="landing-footer"><p>&copy; 2025 Panzlync. Didesain dan dikembangkan oleh Panz.</p></footer>
+    
+    <!-- =========== SCRIPT JAVASCRIPT =========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Script untuk Navigasi Mobile
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mainNav = document.getElementById('main-nav');
+            navToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
+
+            // Script untuk Animasi Scroll
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => { observer.observe(section); });
+        });
+    </script>
+</body>
+</html>
+
